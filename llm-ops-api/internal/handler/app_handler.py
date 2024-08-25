@@ -8,6 +8,7 @@ import os
 
 from openai import OpenAI
 
+from internal.exception import FailException
 from internal.schema.app_schema import CompletionReq
 from pkg.response import success_json, validate_error_json
 
@@ -40,4 +41,4 @@ class AppHandler:
         return success_json({"content": content})
 
     def ping(self):
-        return {"ping": "pong"}
+        raise FailException("服务请求失败")
