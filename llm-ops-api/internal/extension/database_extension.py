@@ -4,6 +4,6 @@
 @File    :database_extension.py
 @Desc    :
 """
-from flask_sqlalchemy import SQLAlchemy
+from pkg.sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()

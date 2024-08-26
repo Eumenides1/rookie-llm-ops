@@ -5,12 +5,12 @@
 @Desc    : http服务主入口
 """
 import dotenv
-from flask_sqlalchemy import SQLAlchemy
 from injector import Injector
 
 from config import Config
 from internal.router import Router
 from internal.server import Http
+from pkg.sqlalchemy import SQLAlchemy
 from .module import ExtensionModule
 
 # 将.env加载到环境变量里
