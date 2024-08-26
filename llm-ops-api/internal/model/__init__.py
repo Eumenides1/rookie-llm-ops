@@ -4,3 +4,7 @@
 @File    :__init__.py.py
 @Desc    :
 """
+
+from .app import App
+
+__all__ = ['App']
