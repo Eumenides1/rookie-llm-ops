@@ -1,6 +1,6 @@
 import { apiPrefix } from '@/config'
 // 超时时间控制
-const TIME_OUT = 10000
+const TIME_OUT = 100000
 
 // 基础配置
 const baseFetchOptions = {
@@ -73,10 +73,10 @@ export const request = <T>(url: string, options = {}) => {
     return baseFetch<T>(url, options)
 }
 
-export const get = <T>(url: string, options: {}) => {
+export const get = <T>(url: string, options = {}) => {
     return request<T>(url, Object.assign({}, options, { method: 'GET' }))
 }
 
-export const post = <T>(url: string, options: {}) => {
+export const post = <T>(url: string, options = {}) => {
     return request<T>(url, Object.assign({}, options, { method: 'POST' }))
 }

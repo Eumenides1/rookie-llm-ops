@@ -9,6 +9,9 @@ import uuid
 from dataclasses import dataclass
 
 from injector import inject
+from langchain_community.chat_models import ChatOpenAI
+from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 from openai import OpenAI
 
 from internal.exception import FailException
@@ -44,6 +47,24 @@ class AppHandler:
         """根据 ID 删除APP 记录"""
         app = self.app_service.delete_app(id)
         return success_message(f"应用已删除，删除的应用 id：{app.id}")
+
+    def debug(self, app_id: uuid.UUID):
+        """聊天接口"""
+        # 1.提取从接口中获取的输入，POST
+        req = CompletionReq()
+        if not req.validate():
+            return validate_error_json(req.errors)
+
+        # 2.构建组件
+        prompt = ChatPromptTemplate.from_template("{query}")
+        llm = ChatOpenAI(model="gpt-3.5-turbo-16k")
+        parser = StrOutputParser()
+        # 3.构建链
+        chain = prompt | llm | parser
+        # 4.调用链得到结果
+        content = chain.invoke({"query": req.query.data})
+        print('生成内容:', content)
+        return success_json({"content": content})
 
     def completion(self):
         """聊天接口"""
